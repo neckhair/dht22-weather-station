@@ -24,16 +24,26 @@ float currentValue() {
   }
 }
 
+char letterForMode() {
+  switch(currentMode) {
+    case MODE_TEMP:
+      return 'C';
+    case MODE_HUMIDITY:
+      return 'H';
+  }
+}
+
 void readAndDisplayValue() {
   int chk = DHT.read22(DHT22_PIN);
   switch (chk)
   {
     case DHTLIB_OK:
       for( int timer = 0; timer < 200; timer++ ) {
-        for ( byte digit = 0; digit < numberOfDigits; digit++) {
+        for ( byte digit = 1; digit < numberOfDigits; digit++) {
           byte figure = extractDigit(currentValue(), digit);
           displayFigure(digits[digit], figure);
         }
+        displayLetter(digits[0], letterForMode());
       }
       break;
     case DHTLIB_ERROR_CHECKSUM:

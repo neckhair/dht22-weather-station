@@ -6,10 +6,8 @@ void turnAllSegmentsOff() {
   }
 }
 
-void displayFigure(byte digit, byte figure) {
+void displayMask(byte digit, int mask) {
   digitalWrite(digit, DigitOn);
-
-  int mask = masks[figure];
 
   if( ( mask & 0b1000000 ) > 0 ) digitalWrite(segmentA, SegmentOn);
   if( ( mask & 0b0100000 ) > 0 ) digitalWrite(segmentB, SegmentOn);
@@ -26,6 +24,24 @@ void displayFigure(byte digit, byte figure) {
   digitalWrite(digit, DigitOff);
 
   delayMicroseconds(FRAMEPERIOD - BRIGHTNESS_DELAY + 1);
+}
+
+void displayFigure(byte digit, byte figure) {
+  int mask = digitMasks[figure];
+  displayMask(digit, mask);
+}
+
+void displayLetter(byte digit, char letter) {
+  int mask;
+  switch( letter ) {
+    case 'C':
+      mask = letterMasks[0];
+      break;
+    case 'H':
+      mask = letterMasks[1];
+      break;
+  }
+  displayMask(digit, mask);
 }
 
 unsigned long extractDigit(unsigned int number, byte digit) {

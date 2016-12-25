@@ -23,7 +23,7 @@ const boolean SegmentOff = LOW;
 const int segments[] = { segmentA, segmentB, segmentC, segmentD, segmentE, segmentF, segmentG };
 const int digits[] = { digit4, digit3, digit2, digit1 };
 
-const int masks[] = {
+const int digitMasks[] = {
 // ABCDEFG
   0b1111110, // 0
   0b0110000, // 1
@@ -37,9 +37,15 @@ const int masks[] = {
   0b1111011, // 9
 };
 
+const char letterMasks[] = {
+  0b1001110, // C
+  0b0110111, // H
+};
+
 const int numberOfSegments = 7;
 const int numberOfDigits = 4;
 
 unsigned long extractDigit(unsigned int number, byte digit);
 void turnAllSegmentsOff();
 void displayFigure(byte digit, byte figure);
+void displayLetter(byte digit, char letter);
