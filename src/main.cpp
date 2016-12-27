@@ -5,7 +5,8 @@
 dht DHT;
 
 #define DHT22_PIN 6
-#define MODE_SWITCH_PIN A0
+
+#define TIME_PER_MODE_IN_MILLIS 4000
 
 #define MODE_TEMP     0b01
 #define MODE_HUMIDITY 0b10
@@ -56,10 +57,7 @@ void readAndDisplayValue() {
 }
 
 void setMode() {
-  unsigned int modeSwitch = digitalRead(MODE_SWITCH_PIN);
-
-  if( modeSwitch == LOW) return;
-  if( millis() - modeLastSwitched < 200 ) return; // Switch only every x millis
+  if( millis() - modeLastSwitched < TIME_PER_MODE_IN_MILLIS ) return;
 
   currentMode = currentMode ^ 0b11;
   modeLastSwitched = millis();
@@ -68,8 +66,6 @@ void setMode() {
 void setup() {
   for ( int i = 0; i < numberOfDigits; i++ )  pinMode(digits[i], OUTPUT);
   for ( int i = 0; i < numberOfSegments; i++) pinMode(segments[i], OUTPUT);
-
-  pinMode(MODE_SWITCH_PIN, INPUT);
 
   turnAllSegmentsOff();
 }
