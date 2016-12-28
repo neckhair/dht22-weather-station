@@ -4,7 +4,7 @@
 
 dht DHT;
 
-#define DHT22_PIN 6
+#define DHT22_PIN 13
 
 #define TIME_PER_MODE_IN_MILLIS 4000
 

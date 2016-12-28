@@ -4,15 +4,15 @@
 #define BRIGHTNESS_DELAY 200
 
 #define digit1 7
-#define digit2 11
-#define digit3 12
-#define digit4 13
-#define segmentG 2
-#define segmentF 3
-#define segmentA 4
-#define segmentB 5
-#define segmentE 8
-#define segmentD 9
+#define digit2 4
+#define digit3 3
+#define digit4 9
+#define segmentG 8
+#define segmentF 5
+#define segmentA 6
+#define segmentB 2
+#define segmentE 12
+#define segmentD 11
 #define segmentC 10
 
 const boolean DigitOn = LOW;
