@@ -66,7 +66,7 @@ void setMode() {
 void setup() {
   for ( int i = 0; i < numberOfDigits; i++ )  pinMode(digits[i], OUTPUT);
   for ( int i = 0; i < numberOfSegments; i++) pinMode(segments[i], OUTPUT);
-  pinMode(dp, OUTPUT);
+  pinMode(DECIMAL_POINT, OUTPUT);
 
   turnAllSegmentsOff();
 }

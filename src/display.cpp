@@ -9,20 +9,20 @@ void turnAllSegmentsOff() {
 void displayMask(byte digit, int mask) {
   digitalWrite(digit, DigitOn);
 
-  if( ( mask & 0b1000000 ) > 0 ) digitalWrite(segmentA, SegmentOn);
-  if( ( mask & 0b0100000 ) > 0 ) digitalWrite(segmentB, SegmentOn);
-  if( ( mask & 0b0010000 ) > 0 ) digitalWrite(segmentC, SegmentOn);
-  if( ( mask & 0b0001000 ) > 0 ) digitalWrite(segmentD, SegmentOn);
-  if( ( mask & 0b0000100 ) > 0 ) digitalWrite(segmentE, SegmentOn);
-  if( ( mask & 0b0000010 ) > 0 ) digitalWrite(segmentF, SegmentOn);
-  if( ( mask & 0b0000001 ) > 0 ) digitalWrite(segmentG, SegmentOn);
+  if( ( mask & 0b1000000 ) > 0 ) digitalWrite(SEGMENT_A, SegmentOn);
+  if( ( mask & 0b0100000 ) > 0 ) digitalWrite(SEGMENT_B, SegmentOn);
+  if( ( mask & 0b0010000 ) > 0 ) digitalWrite(SEGMENT_C, SegmentOn);
+  if( ( mask & 0b0001000 ) > 0 ) digitalWrite(SEGMENT_D, SegmentOn);
+  if( ( mask & 0b0000100 ) > 0 ) digitalWrite(SEGMENT_E, SegmentOn);
+  if( ( mask & 0b0000010 ) > 0 ) digitalWrite(SEGMENT_F, SegmentOn);
+  if( ( mask & 0b0000001 ) > 0 ) digitalWrite(SEGMENT_G, SegmentOn);
 
-  digitalWrite(dp, digit == 4);
+  digitalWrite(DECIMAL_POINT, digit == 4);
 
   delayMicroseconds(BRIGHTNESS_DELAY + 1);
 
   turnAllSegmentsOff();
-  digitalWrite(dp, LOW);
+  digitalWrite(DECIMAL_POINT, LOW);
 
   digitalWrite(digit, DigitOff);
 

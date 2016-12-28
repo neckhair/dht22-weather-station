@@ -3,26 +3,26 @@
 #define FRAMEPERIOD 2000
 #define BRIGHTNESS_DELAY 200
 
-#define digit1 7
-#define digit2 4
-#define digit3 3
-#define digit4 9
-#define segmentG 8
-#define segmentF 5
-#define segmentA 6
-#define segmentB 2
-#define segmentE 12
-#define segmentD 11
-#define segmentC 10
-#define dp A0
+#define DIGIT_1 7
+#define DIGIT_2 4
+#define DIGIT_3 3
+#define DIGIT_4 9
+#define SEGMENT_G 8
+#define SEGMENT_F 5
+#define SEGMENT_A 6
+#define SEGMENT_B 2
+#define SEGMENT_E 12
+#define SEGMENT_D 11
+#define SEGMENT_C 10
+#define DECIMAL_POINT A0
 
 const boolean DigitOn = LOW;
 const boolean DigitOff = HIGH;
 const boolean SegmentOn = HIGH;
 const boolean SegmentOff = LOW;
 
-const int segments[] = { segmentA, segmentB, segmentC, segmentD, segmentE, segmentF, segmentG };
-const int digits[] = { digit4, digit3, digit2, digit1 };
+const int segments[] = { SEGMENT_A, SEGMENT_B, SEGMENT_C, SEGMENT_D, SEGMENT_E, SEGMENT_F, SEGMENT_G };
+const int digits[] = { DIGIT_4, DIGIT_3, DIGIT_2, DIGIT_1 };
 
 const int digitMasks[] = {
 // ABCDEFG
