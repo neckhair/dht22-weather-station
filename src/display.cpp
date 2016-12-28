@@ -17,9 +17,12 @@ void displayMask(byte digit, int mask) {
   if( ( mask & 0b0000010 ) > 0 ) digitalWrite(segmentF, SegmentOn);
   if( ( mask & 0b0000001 ) > 0 ) digitalWrite(segmentG, SegmentOn);
 
+  digitalWrite(dp, digit == 4);
+
   delayMicroseconds(BRIGHTNESS_DELAY + 1);
 
   turnAllSegmentsOff();
+  digitalWrite(dp, LOW);
 
   digitalWrite(digit, DigitOff);
 

@@ -41,7 +41,7 @@ void readAndDisplayValue() {
     case DHTLIB_OK:
       for( int timer = 0; timer < 200; timer++ ) {
         for ( byte digit = 1; digit < numberOfDigits; digit++) {
-          byte figure = extractDigit(currentValue(), digit);
+          byte figure = extractDigit(currentValue() * 10, digit);
           displayFigure(digits[digit], figure);
         }
         displayLetter(digits[0], letterForMode());
@@ -66,6 +66,7 @@ void setMode() {
 void setup() {
   for ( int i = 0; i < numberOfDigits; i++ )  pinMode(digits[i], OUTPUT);
   for ( int i = 0; i < numberOfSegments; i++) pinMode(segments[i], OUTPUT);
+  pinMode(dp, OUTPUT);
 
   turnAllSegmentsOff();
 }

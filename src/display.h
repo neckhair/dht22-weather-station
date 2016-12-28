@@ -14,6 +14,7 @@
 #define segmentE 12
 #define segmentD 11
 #define segmentC 10
+#define dp A0
 
 const boolean DigitOn = LOW;
 const boolean DigitOff = HIGH;
