@@ -39,14 +39,24 @@ const int digitMasks[] = {
 };
 
 const char letterMasks[] = {
-  0b1001110, // C
-  0b0110111, // H
+  0b1001110, // C for Temperature in Celsius
+  0b0110111, // H for Humidity in Percent
+  0b1001111, // E for errors
 };
 
-const int numberOfSegments = 7;
-const int numberOfDigits = 4;
+class Display {
+    void displayMask(byte digit, int mask);
+    unsigned long extractDigit(unsigned int number, byte digit);
+    void turnAllSegmentsOff();
 
-unsigned long extractDigit(unsigned int number, byte digit);
-void turnAllSegmentsOff();
-void displayFigure(byte digit, byte figure);
-void displayLetter(byte digit, char letter);
+  public:
+    const int numberOfSegments = 7;
+    const int numberOfDigits = 4;
+
+    byte digitWithDecimalPoint = 0;
+
+    void setup();
+    void displayNumber(unsigned int number);
+    void displayFigure(byte digit, byte figure);
+    void displayLetter(byte digit, char letter);
+};

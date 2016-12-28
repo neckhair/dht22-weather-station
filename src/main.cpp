@@ -3,6 +3,7 @@
 #include "dht.h"
 
 dht DHT;
+Display display;
 
 #define DHT22_PIN 13
 
@@ -32,6 +33,7 @@ char letterForMode() {
     case MODE_HUMIDITY:
       return 'H';
   }
+  return 'E';
 }
 
 void readAndDisplayValue() {
@@ -40,11 +42,8 @@ void readAndDisplayValue() {
   {
     case DHTLIB_OK:
       for( int timer = 0; timer < 200; timer++ ) {
-        for ( byte digit = 1; digit < numberOfDigits; digit++) {
-          byte figure = extractDigit(currentValue() * 10, digit);
-          displayFigure(digits[digit], figure);
-        }
-        displayLetter(digits[0], letterForMode());
+        display.displayNumber(currentValue() * 10);
+        display.displayLetter(digits[0], letterForMode());
       }
       break;
     case DHTLIB_ERROR_CHECKSUM:
@@ -64,11 +63,8 @@ void setMode() {
 }
 
 void setup() {
-  for ( int i = 0; i < numberOfDigits; i++ )  pinMode(digits[i], OUTPUT);
-  for ( int i = 0; i < numberOfSegments; i++) pinMode(segments[i], OUTPUT);
-  pinMode(DECIMAL_POINT, OUTPUT);
-
-  turnAllSegmentsOff();
+  display.digitWithDecimalPoint = digits[2];
+  display.setup();
 }
 
 void loop() {
