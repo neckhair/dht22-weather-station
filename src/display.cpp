@@ -4,9 +4,13 @@
  * Setup all the pins
  **********************/
 void Display::setup() {
-  for ( int i = 0; i < numberOfDigits; i++ )  pinMode(digits[i], OUTPUT);
-  for ( int i = 0; i < numberOfSegments; i++) pinMode(segments[i], OUTPUT);
-  pinMode(DECIMAL_POINT, OUTPUT);
+  for ( int i = 0; i < numberOfDigits; i++ ) {
+    pinMode(digits[i], OUTPUT);
+    digitalWrite(digits[i], DigitOff);
+  }
+  pinMode(LATCH_PIN, OUTPUT);
+  pinMode(CLOCK_PIN, OUTPUT);
+  pinMode(DATA_PIN, OUTPUT);
 }
 
 /*********************************************
@@ -19,26 +23,26 @@ void Display::setup() {
  *    ---
  *     C
  *            ABCDEFG
- *  Bitmask 0b1111111 means an 8 on the display,
- *  whereas 0b1110000 means a 7.
+ *  Bitmask 0b01111111 means an 8 on the display,
+ *  whereas 0b01110000 means a 7.
+ *
+ *  The first bit sets the decimal point active.
  *********************************************/
 void Display::displayMask(byte digit, int mask) {
   digitalWrite(digit, DigitOn);
 
-  if( ( mask & 0b1000000 ) > 0 ) digitalWrite(SEGMENT_A, SegmentOn);
-  if( ( mask & 0b0100000 ) > 0 ) digitalWrite(SEGMENT_B, SegmentOn);
-  if( ( mask & 0b0010000 ) > 0 ) digitalWrite(SEGMENT_C, SegmentOn);
-  if( ( mask & 0b0001000 ) > 0 ) digitalWrite(SEGMENT_D, SegmentOn);
-  if( ( mask & 0b0000100 ) > 0 ) digitalWrite(SEGMENT_E, SegmentOn);
-  if( ( mask & 0b0000010 ) > 0 ) digitalWrite(SEGMENT_F, SegmentOn);
-  if( ( mask & 0b0000001 ) > 0 ) digitalWrite(SEGMENT_G, SegmentOn);
+  if ( digit == digitWithDecimalPoint ){
+    // Activate decimal point with first bit
+    mask |= 0b10000000;
+  }
 
-  digitalWrite(DECIMAL_POINT, digit == digitWithDecimalPoint);
+  digitalWrite(LATCH_PIN, LOW);
+  shiftOut(DATA_PIN, CLOCK_PIN, LSBFIRST, mask);
+  digitalWrite(LATCH_PIN, HIGH);
 
   delayMicroseconds(BRIGHTNESS_DELAY + 1);
 
   turnAllSegmentsOff();
-  digitalWrite(DECIMAL_POINT, LOW);
 
   digitalWrite(digit, DigitOff);
 
@@ -95,7 +99,7 @@ unsigned long Display::extractDigit(unsigned int number, byte digit) {
 }
 
 void Display::turnAllSegmentsOff() {
-  for( int i = 0; i < numberOfSegments; i++) {
-    digitalWrite(segments[i], SegmentOff);
-  }
+  digitalWrite(LATCH_PIN, LOW);
+  shiftOut(DATA_PIN, CLOCK_PIN, LSBFIRST, 0);
+  digitalWrite(LATCH_PIN, HIGH);
 }

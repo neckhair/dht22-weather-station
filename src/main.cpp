@@ -5,7 +5,7 @@
 dht DHT;
 Display display;
 
-#define DHT22_PIN 13
+#define DHT22_PIN 2
 
 #define TIME_PER_MODE_IN_MILLIS 4000
 
